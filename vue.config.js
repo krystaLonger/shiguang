@@ -15,7 +15,10 @@ module.exports = {
                     // },
 
             },
-
+            '/api': {
+                target: 'https://ticket-m.mtime.cn',
+                changeOrigin: true
+            }
         }
     },
     lintOnSave: false, // 直接关闭eslint检查

@@ -18,11 +18,46 @@
         <li>影院特效<i class="iconfont iconjiantou9"></i></li>
       </ul>
     </div>
+    <div class="content">
+      <ul v-if="dataList.length">
+        <li v-for="data in dataList" :key="data.cinemaId">
+          <div class="lf">
+            <p class="cname">{{data.cinameName}}</p>
+            <p class="cname1">{{data.address}}</p>
+          </div>
+          <div class="rt" v-show="data.minPrice">
+            <p class="my">
+              <i>￥</i>
+              {{data.minPrice/100}}
+              <i>起</i>
+            </p>
+          </div>
+        </li>
+      </ul>
+      <div class="text" v-else>
+        <div class="text1">
+          <i></i>
+          <p>抱歉没有满足的影院</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+  data() {
+    return{
+      dataList:[]
+    }
+  },
+  created() {
+    axios.get('/api/proxy/ticket/onlineCinemasByCity.api?locationId=290&_=1586599123306').then(res => {
+      this.dataList=res.data.data.cinemaList
+      console.log(this.dataList)
+    })
+  }
 }
 </script>
 
