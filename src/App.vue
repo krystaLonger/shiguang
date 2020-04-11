@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <router-view></router-view>
     <Tabbar></Tabbar>
+    <router-view></router-view>
+
   </div>
 </template>
 
@@ -23,8 +24,5 @@ export default {
   ul li{
     list-style: none;
   }
-  body>div>div{
-    position: absolute;
-    top: 42px;
-  }
+
 </style>

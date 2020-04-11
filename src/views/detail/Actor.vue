@@ -3,17 +3,17 @@
     <div class="photo">
       <van-nav-bar
         title="演职员表"
-        left-text="返回"
         left-arrow
+        @click-left="onClickLeft"
       />
       <van-index-bar :index-list="indexList" >
       <div v-for="(data,index) in actorList" :key="index" >
         <van-index-anchor index="index">{{data.typeName}}</van-index-anchor>
         <div v-for="item in data.persons" :key="item.id" class="photoList">
-          <img :src="item.image" alt="" >
+          <img :src="item.image != 'http://img31.mtime.cn/ph/888/2226888/2226888_1280X720X2.jpg'?item.image:''" alt="" >
           <div class="right">
             <van-cell  :title="item.name" />
-            <span>{{item.nameEn}}</span>
+            <span class="nameEn">{{item.nameEn}}</span>
           </div>
         </div>
       </div>
@@ -40,14 +40,14 @@ export default {
     }
   },
   created () {
-    axios.get('/Service/callback.mi/Movie/MovieCreditsWithTypes.api?movieId=264258&t=202041112194447274').then(res => {
+    axios.get(`/Service/callback.mi/Movie/MovieCreditsWithTypes.api?movieId=${this.$route.params.id}&t=202041112194447274`).then(res => {
       this.actorList = res.data.types
       // console.log(this.actorList)
     })
   },
   methods: {
     onClickLeft () {
-      Toast('返回')
+      this.$router.back()
     }
   }
 }
@@ -62,11 +62,21 @@ export default {
     height: 100%;
     background: #ffffff;
     .photoList{
-      // display: flex;
+      display: flex;
+      width: 100%;
+
+      padding: 10px;
       img{
         width: 70px;
         height: 70px;
+        float: left;
+      }
+      .right{
+        width: 75%;
 
+        .nameEn{
+          padding-left: 16px;
+        }
       }
     }
   }

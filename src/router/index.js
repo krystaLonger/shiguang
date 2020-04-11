@@ -35,7 +35,21 @@ const routes = [
     name: 'detail',
     path: '/detail/:id',
     component: Detail,
-    props: true
+    props: true,
+    children: [
+      {
+        name: 'actor',
+        path: '/detail/:id/actor',
+        component: () => import('@/views/detail/Actor'),
+        props: true
+      },
+      {
+        name: 'photo',
+        path: '/detail/:id/photo',
+        component: () => import('@/views/detail/stagephoto'),
+        props: true
+      }
+    ]
   },
   {
     path: '/cinema',

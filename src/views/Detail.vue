@@ -18,44 +18,72 @@
           <span>我想看</span>
           <span>我要评分</span>
         </nav>
-        <i>{{filmInfo.rating}}</i>
+        <i v-show="filmInfo.rating>0">{{filmInfo.rating}}</i>
       </div>
       <p class="text">{{filmInfo.commonSpecial}}</p>
     </div>
     <div class="center">
       <p :class="{details:isActive}">{{filmInfo.content}}</p>
-      <i class="iconfont " @click="isActive = !isActive" :class="isActive?'icon-jiantou-copy-copy':'icon-jiantou'"></i>
+      <i class="iconfont " @click="isActive = !isActive" :class="isActive?'icon-jiantou-copy-copy':'icon-jiantou'">...</i>
     </div>
     <div class="actors">
-      <p @click="isPhotoShow=true">演职人员</p>
+      <span>演职人员</span>
+      <template v-if="$el.id">
+        <router-link
+        :to="{
+          name:'actor',
+          params:{id:$el.id}
+        }"
+      ><span> ></span></router-link>
+      </template>
       <ul>
-        <li>演职人员</li>
+        <li v-for="personnel in filmInfo.actorList" :key="personnel.actorId">
+          <img :src="personnel.actorImg" alt="">
+          <p>{{personnel.actor}}</p>
+          <p>{{personnel.actorEn}}</p>
+        </li>
+      </ul>
+      <span>剧照</span>
+      <template v-if="$el.id">
+        <router-link
+        :to="{
+          name:'photo',
+          params:{id:$el.id}
+        }"
+      ><span> ></span></router-link>
+      </template>
+      <ul>
+        <li v-for="(photo,index) in filmInfo.images" :key="index" class="stage">
+          <img :src="photo" alt="">
+        </li>
       </ul>
     </div>
-    <Actor v-show="isPhotoShow"></Actor>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import Actor from './detail/Actor'
 export default {
-  components: {
-    Actor
-  },
   data () {
     return {
       filmInfo: null,
-      isActive: true,
-      isPhotoShow: false
+      isActive: true
+      // moveId:''
     }
   },
   created () {
     // console.log(this.$route.params.id)
     axios.get(`/Service/callback.mi/movie/Detail.api?movieId=${this.$route.params.id}&locationId=365&t=20204102122947031`).then(res => {
       this.filmInfo = res.data
+      // this.moveId = this.$el.id
     })
   }
+  // methods:{
+  //   handleClick(){
+  //     this.$router.replace('')
+  //   }
+  // }
 }
 </script>
 
@@ -79,7 +107,7 @@ export default {
       }
     }
     .right{
-      // float: right;
+      width: 224px;
       h3{
         margin-top:5px;
         font-size: 18px;
@@ -145,4 +173,33 @@ export default {
       overflow: hidden;
     }
   }
+  .actors{
+    span{
+      font-size: 20px;
+      color: #333;
+      text-align: right;
+    }
+
+      ul{
+        display: flex;
+        overflow: hidden;
+        li{
+          width: 100px;
+          margin: 10px;
+          text-align: center;
+          img{
+            width: 100%;
+            max-height: 100px;
+          }
+        }
+        .stage{
+          width: 75px;
+          height: 75px;
+          img{
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
 </style>

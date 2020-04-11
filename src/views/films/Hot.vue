@@ -3,6 +3,10 @@
     <!-- <ul>
       <li v-for="data in dataList" :key="data" @click="toDetail(data)">{{data}}</li>
     </ul> -->
+    <div class="hot">
+      <p >正在热映（{{dataList.length}}部）</p>
+      <i>></i>
+    </div>
     <ul>
       <router-link
         v-for="data in dataList"
@@ -15,7 +19,7 @@
       >
         <img :src="data.img" alt="">
         <p>{{data.t}}</p>
-        <span>{{data.r}}</span>
+        <span v-show="data.r>0">{{data.r}}</span>
       </router-link>
     </ul>
   </div>
@@ -76,6 +80,20 @@ export default {
         background: #659d0e;
         color: #fff;
       }
+    }
+  }
+   .hot{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid gainsboro;
+    p{
+      font-size: 22px;
+      color: #333;
+    }
+    i{
+      font-size: 22px;
+      color: gray;
     }
   }
 </style>
