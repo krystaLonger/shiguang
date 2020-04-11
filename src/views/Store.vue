@@ -22,17 +22,11 @@
                 </li>
             </ul>
         </div>
-        <!-- <div class="mallShop">
-          <div>
-              <img :src="dataA.cellA.img" alt="">
-          </div>
-          <div v-for="item in allData.cellC.list" :key="item.image">
-              <img :src="item.image" alt="">
-          </div>
-          <div>
-              <img :src="allData.cellB.img" alt="">
-          </div>
-        </div> -->
+       <div class="mallshop">
+         <ul>
+           <li v-for="item in shopData" :key="item.id"><img :src="item.img" alt=""></li>
+         </ul>
+       </div>
         </div>
 </template>
 
@@ -47,16 +41,19 @@ export default {
       return {
           banners:"",
           navData:"",
-          dataA:""
+          shopData:[
+            {id:1,img: "http://img5.mtime.cn/mg/2019/08/19/141732.33138431.jpg"},
+            {id:2,img:"http://img5.mtime.cn/mg/2019/07/03/174427.96016382.jpg"},
+            {id:3,img:"http://img5.mtime.cn/mg/2019/07/03/174012.80503273.jpg"}
+            
+          ]
       }
   }, 
-  mounted() {
-    axios.get('/Service/callback-mall.mi/PageSubArea/MarketFirstPageNew.api?t=20204110542841854').then(res => {
+  async created() {
+    await axios.get('/Service/callback-mall.mi/PageSubArea/MarketFirstPageNew.api?t=20204110542841854').then(res => {
       this.banners = res.data.scrollImg
       console.log(res.data.scrollImg)
       this.navData=res.data.navigatorIcon
-      this.dataA=res.data.cellA
-      console.log(res.data.cellA)
     })
   }
 }
@@ -64,7 +61,7 @@ export default {
 
 <style lang="scss" scoped>
 .shopBox{
-  background: #f6f6f6;
+  background: #d8d8d8;
   position: relative;
   .search{
           width: 100%;
@@ -80,7 +77,7 @@ export default {
           background: #f6f6f6;
           .inputBox{
               margin-left: 12px;
-              width: 290px;
+              width: 300px;
               height: 35px;
               border-radius:12px;
               border: 1px solid #d8d8d8;
@@ -115,7 +112,7 @@ export default {
             img{
               display: block;
                 position: absolute;
-                max-width: 100%;
+                max-width: 375px;
                 max-height: 250px;
             }
         }
@@ -141,6 +138,22 @@ export default {
               img{
                 width: 50px;
               }
+            }
+          }
+        }
+        .mallshop{
+          li{
+            float: left;
+          img{
+            width: 187.5px;
+            height: 225px;
+          }
+          }
+          li:nth-child(3){
+            width: 375px;
+            img{
+              width: 100%;
+              height: 111px;
             }
           }
         }

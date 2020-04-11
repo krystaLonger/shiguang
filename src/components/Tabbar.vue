@@ -37,22 +37,21 @@ export default {
     background: #1c2635;
     width: 100%;
     display: flex;
-    align-items: center;
-    position: absolute;
-
-    top: 0;
+    height: 50px;
     li{
       width: 25%;
+      line-height: 50px;
       text-align: center;
-      box-sizing: border-box;
-      padding: 10px 0;
-      box-sizing: content-box;
       margin: 0 10px;
       color: white;
       font-size: 14px;
       img{
         width: 100%;
+        height: 50%;
       }
+    }
+    .img{
+      padding: 0;
     }
   }
   .active{
