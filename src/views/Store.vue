@@ -63,13 +63,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-*{
-  padding: 0;
-  margin: 0;
-}
-
 .shopBox{
   background: #f6f6f6;
+  position: relative;
   .search{
           width: 100%;
           height: 65px;
@@ -84,7 +80,7 @@ export default {
           background: #f6f6f6;
           .inputBox{
               margin-left: 12px;
-              width: 300px;
+              width: 290px;
               height: 35px;
               border-radius:12px;
               border: 1px solid #d8d8d8;
