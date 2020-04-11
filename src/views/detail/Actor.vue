@@ -5,8 +5,6 @@
         title="演职员表"
         left-text="返回"
         left-arrow
-        @click-left="onClickLeft"
-        @click-right="onClickRight"
       />
       <van-index-bar :index-list="indexList" >
       <div v-for="(data,index) in actorList" :key="index" >
@@ -42,9 +40,9 @@ export default {
     }
   },
   created () {
-    axios.get('/Service/callback.mi/Movie/MovieCreditsWithTypes.api?movieId=264258&t=20204111185728169').then(res => {
+    axios.get('/Service/callback.mi/Movie/MovieCreditsWithTypes.api?movieId=264258&t=202041112194447274').then(res => {
       this.actorList = res.data.types
-      console.log(this.actorList)
+      // console.log(this.actorList)
     })
   },
   methods: {
